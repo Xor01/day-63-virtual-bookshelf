@@ -10,6 +10,16 @@ db = SQLAlchemy()
 db.init_app(app=app)
 
 
+class Book(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(250), unique=True, nullable=False)
+    author = db.Column(db.String(250), nullable=False)
+    rating = db.Column(db.Float, nullable=False)
+
+    def __repr__(self):
+        return f'<Book {self.title}>'
+
+
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -23,10 +33,14 @@ def add():
             'author': request.form.get('author'),
             'rating': request.form.get('rating')
         }
+        book_to_add = Book(title=book['title'], author=book['author'], rating=float(book['rating']))
+        with app.app_context():
+            db.session.add(book_to_add)
+            db.session.commit()
+        return redirect(url_for('home'))
     return render_template('add.html')
 
 
 if __name__ == "__main__":
     load_dotenv()
     app.run(debug=True)
-
