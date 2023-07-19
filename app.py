@@ -33,11 +33,14 @@ def add():
             'author': request.form.get('author'),
             'rating': request.form.get('rating')
         }
-        book_to_add = Book(title=book['title'], author=book['author'], rating=float(book['rating']))
-        with app.app_context():
-            db.session.add(book_to_add)
-            db.session.commit()
-        return redirect(url_for('home'))
+        book_to_add = Book(title=book['title'], author=book['author'], rating=book['rating'])
+        try:
+            with app.app_context():
+                db.session.add(book_to_add)
+                db.session.commit()
+            return redirect(url_for('home'))
+        except Exception as e:
+            print(e)
     return render_template('add.html')
 
 
