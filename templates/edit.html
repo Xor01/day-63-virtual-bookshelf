@@ -1,24 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Edit Book | {{ book.title }}</title>
-    {{ bootstrap.load_css() }}
-</head>
-<body>
+{% extends 'op.base.html' %}
 
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12 col-md-8">
+{% block title %} Edit {{ book.title }} {% endblock %}
 
-      <h1>Add a new Book into the database</h1>
-
-      <!-- This is where your WTForm will go -->
-        {% from 'bootstrap5/form.html' import render_form %}
-        {{ render_form(form) }}
+{% block body %}
+{{ super() }}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-8">
+                <h1>Edit | {{ book.title }}</h1>
+                {% from 'bootstrap5/form.html' import render_field %}
+                        <form method="post" novalidate>
+                            {{ form.csrf_token() }}
+                            {{ render_field(form.title, value=book.title) }}
+                            {{ render_field(form.author, value=book.author) }}
+                            {{ render_field(form.rating, value=book.rating) }}
+                            {{ render_field(form.submit, value='Edit', button_style='danger') }}
+                            {{ render_field(form.cancel) }}
+                        </form>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-{{ bootstrap.load_js() }}
-</body>
-</html>
+{% endblock %}

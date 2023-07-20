@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'op.base.html' %}
+
+{% block title %} Delete | {{ book.name }} {% endblock %}
+
+
+{% block body %}
+{{ super() }}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-8">
+                <h1>Delete | {{ book.title }}</h1>
+                {% from 'bootstrap5/form.html' import render_field %}
+                        <form method="post" novalidate>
+                            <p class="my-3">Are your sure you want to delete ?</p>
+                            {{ form.csrf_token() }}
+                            {{ render_field(form.submit, button_style='danger', value='Delete') }}
+                            {{ render_field(form.cancel) }}
+                        </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
