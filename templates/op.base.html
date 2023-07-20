@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{  }}</title>
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="icon" href="{{ url_for('static', filename='icons/book.svg') }}">
+    {{ bootstrap.load_css() }}
 </head>
 <body>
+{% block body %}
 
+{% endblock %}
 </body>
 </html>
