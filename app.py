@@ -8,6 +8,9 @@ app.secret_key = getenv('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///book-shelf.db'
 db.init_app(app=app)
 
+with app.app_context():
+    db.create_all()
+
 
 @app.route('/')
 def home():
