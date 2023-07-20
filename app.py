@@ -22,7 +22,9 @@ class Book(db.Model):
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    with app.app_context():
+        books = Book.query.all()
+    return render_template('index.html', books=books)
 
 
 @app.route("/add", methods=['POST', 'GET'])
