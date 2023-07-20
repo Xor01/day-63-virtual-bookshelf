@@ -5,3 +5,4 @@ Flask-SQLAlchemy==3.0.3
 SQLAlchemy==2.0.16
 
 python-dotenv~=1.0.0
+WTForms~=3.0.1
